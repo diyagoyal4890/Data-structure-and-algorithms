@@ -1,0 +1,78 @@
+// Write a program to implement different sorting algorithms like Insertion Sort, Bubble Sort, and Selection Sort.
+
+#include <iostream>
+using namespace std;
+
+void bubbleSort(int arr[], int n) {
+    for (int i = 0; i < n - 1; i++)
+        for (int j = 0; j < n - i - 1; j++)
+            if (arr[j] > arr[j + 1])
+                swap(arr[j], arr[j + 1]);
+}
+
+void selectionSort(int arr[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        int minIndex = i;
+        for (int j = i + 1; j < n; j++)
+            if (arr[j] < arr[minIndex])
+                minIndex = j;
+        swap(arr[i], arr[minIndex]);
+    }
+}
+
+void insertionSort(int arr[], int n) {
+    for (int i = 1; i < n; i++) {
+        int key = arr[i];
+        int j = i - 1;
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j--;
+        }
+        arr[j + 1] = key;
+    }
+}
+
+void display(int arr[], int n) {
+    for (int i = 0; i < n; i++)
+        cout << arr[i] << " ";
+    cout << endl;
+}
+
+int main() {
+    int n, choice;
+    cout << "Enter number of elements: ";
+    cin >> n;
+    int arr[n];
+    cout << "Enter elements: ";
+    for (int i = 0; i < n; i++)
+        cin >> arr[i];
+
+    do {
+        cout << "\n1. Bubble Sort\n2. Selection Sort\n3. Insertion Sort\n4. Exit\nEnter your choice: ";
+        cin >> choice;
+
+        int temp[n];
+        for (int i = 0; i < n; i++)
+            temp[i] = arr[i];
+
+        switch (choice) {
+            case 1:
+                bubbleSort(temp, n);
+                cout << "After Bubble Sort: ";
+                display(temp, n);
+                break;
+            case 2:
+                selectionSort(temp, n);
+                cout << "After Selection Sort: ";
+                display(temp, n);
+                break;
+            case 3:
+                insertionSort(temp, n);
+                cout << "After Insertion Sort: ";
+                display(temp, n);
+                break;
+        }
+    } while (choice != 4);
+
+    return 0;
+}
